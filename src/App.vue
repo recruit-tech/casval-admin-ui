@@ -1,26 +1,29 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
       <img src="./assets/logo-white.svg" class="logo mr-3">
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item" :class="{ 'active': currentTab==='audit' }" @click="changeTab('audit')">
-            <a class="nav-link" href="#">検査管理</a>
+          <li class="nav-item" :class="{ 'active': currentTab==='audit' }">
+            <a class="nav-link" href="#" @click="changeTab('audit')">検査案件管理</a>
           </li>
-          <li class="nav-item" :class="{ 'active': currentTab==='vulnerability' }" @click="changeTab('vulnerability')">
-            <a class="nav-link" href="#">脆弱性管理</a>
+          <li class="nav-item" :class="{ 'active': currentTab==='vulnerability' }">
+            <a class="nav-link" href="#" @click="changeTab('vulnerability')">脆弱性管理</a>
           </li>
         </ul>
       </div>
     </nav>
-    <audit-management v-if="currentTab==='audit'"></audit-management>
-    <vulnerability-management v-else-if="currentTab==='vulnerability'"></vulnerability-management>
+    <modal-authentication></modal-authentication>
+    <audit-management v-if="currentTab==='audit'" :audit-api-client="auditApiClient"></audit-management>
+    <vulnerability-management v-else-if="currentTab==='vulnerability'" :audit-api-client="auditApiClient"></vulnerability-management>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import $ from 'jquery';
 import AuditManagement from './components/AuditManagement.vue';
+import ModalAuthentication from './components/ModalAuthentication.vue';
 import VulnerabilityManagement from './components/VulnerabilityManagement.vue';
 
 export default {
@@ -28,10 +31,12 @@ export default {
   data() {
     return {
       currentTab: 'audit',
+      token: window.localStorage.getItem('token'),
     };
-  },  
+  },
   components: {
     AuditManagement,
+    ModalAuthentication,
     VulnerabilityManagement,
   },
   methods: {
@@ -42,12 +47,17 @@ export default {
   computed: {
     auditApiClient: function createAuditApiClient() {
       return axios.create({
-        baseURL: `${process.env.VUE_APP_AUDIT_API_ENDPOINT}/${this.auditId}`,
+        baseURL: `${process.env.VUE_APP_AUDIT_API_ENDPOINT}`,
         timeout: process.env.VUE_APP_API_TIMEOUT,
         headers: { Authorization: `Bearer ${this.token}` },
         validateStatus: () => true,
       });
     },
+  },
+  mounted: function mounted() {
+    if (this.token === null) {
+      $('#modal-authenticate').modal({ keyboard: false, backdrop: 'static' }).modal('show');
+    }
   },
 };
 </script>
