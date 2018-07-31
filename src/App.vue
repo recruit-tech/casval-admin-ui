@@ -15,7 +15,7 @@
     </nav>
     <modal-authentication></modal-authentication>
     <audit-management v-if="currentTab==='audit'" :audit-api-client="auditApiClient"></audit-management>
-    <vulnerability-management v-else-if="currentTab==='vulnerability'" :audit-api-client="auditApiClient"></vulnerability-management>
+    <vulnerability-management v-else-if="currentTab==='vulnerability'" :vulnerability-api-client="vulnerabilityApiClient"></vulnerability-management>
   </div>
 </template>
 
@@ -48,6 +48,14 @@ export default {
     auditApiClient: function createAuditApiClient() {
       return axios.create({
         baseURL: `${process.env.VUE_APP_AUDIT_API_ENDPOINT}`,
+        timeout: process.env.VUE_APP_API_TIMEOUT,
+        headers: { Authorization: `Bearer ${this.token}` },
+        validateStatus: () => true,
+      });
+    },
+    vulnerabilityApiClient: function createVulnerabilityApiClient() {
+      return axios.create({
+        baseURL: `${process.env.VUE_APP_VULNERABILITY_API_ENDPOINT}`,
         timeout: process.env.VUE_APP_API_TIMEOUT,
         headers: { Authorization: `Bearer ${this.token}` },
         validateStatus: () => true,

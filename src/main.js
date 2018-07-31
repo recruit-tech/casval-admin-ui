@@ -13,6 +13,7 @@ window.eventBus = new Vue();
 Vue.use(VueI18n);
 const i18n = new VueI18n({
   locale: (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2),
+  fallbackLocale: 'en',
   messages: {},
 });
 
