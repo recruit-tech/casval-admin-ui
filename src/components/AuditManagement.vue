@@ -6,6 +6,7 @@
           <div class="card">
             <div class="card-body">
               <div class="h5">新規検査の登録</div>
+              <hr class="mb-2">
               <audit-registration-form :audit-api-client="auditApiClient"></audit-registration-form>
             </div>
           </div>

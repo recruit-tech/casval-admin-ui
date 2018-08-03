@@ -89,7 +89,7 @@ export default {
           contacts: filteredContacts,
         });
         switch (res.status) {
-          case 201: {
+          case 200: {
             this.contacts = [{ name: '', email: '' }];
             this.errorMessage = '';
             this.name = '';

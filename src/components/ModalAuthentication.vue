@@ -55,7 +55,7 @@ export default {
           password: this.password,
         });
         switch (res.status) {
-          case 201:
+          case 200:
             window.localStorage.setItem('token', res.data.token);
             window.location.reload(true);
             break;
