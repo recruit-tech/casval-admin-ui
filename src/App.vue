@@ -5,10 +5,10 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item" :class="{ 'active': currentTab==='audit' }">
-            <a class="nav-link" href="#" @click="changeTab('audit')">検査案件管理</a>
+            <a class="nav-link" href="#" @click="changeTab('audit')">{{ $t('audit-management') }}</a>
           </li>
           <li class="nav-item" :class="{ 'active': currentTab==='vulnerability' }">
-            <a class="nav-link" href="#" @click="changeTab('vulnerability')">脆弱性管理</a>
+            <a class="nav-link" href="#" @click="changeTab('vulnerability')">{{ $t('vulnerability-management') }}</a>
           </li>
         </ul>
       </div>

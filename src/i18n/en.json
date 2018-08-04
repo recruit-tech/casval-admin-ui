@@ -1,0 +1,46 @@
+{
+  "authentication": {
+    "title": "Autenticate administrator",
+    "message": "Enter administrator password.",
+    "password": "Administrator password",
+    "ok": "Authenticate",
+    "error-general": "Failed to authenticate"
+  },
+  "audit-management": "Audit",
+  "audit": {
+    "register-new-audit": "Register new audit",
+    "ongoing": "Audit ongoing",
+    "completed": "Audit completed",
+    "name": "Audit name",
+    "contact": "Contacts",
+    "contact-name": "Name",
+    "contact-email": "E-mail",
+    "register": "Register an audit",
+    "error-no-audit-name": "Enter an audit name",
+    "error-no-contact": "Enter a name of contact",
+    "error-invalid-name": "Enter an e-mail address for {name}",
+    "error-invalid-email": "{email} is not a valid e-mail address",
+    "error-general": "Failed to register new audit",
+    "created-at": "Created at",
+    "updated-at": "Last updated at",
+    "datetime-format": "DD/MM/YYYY (ddd) HH:mm:ss",
+    "action": "Action",
+    "send-email": "Send an e-mail to contacts",
+    "withdraw": "Withdraw the audit",
+    "read-more": "Read more",
+    "error-loading": "Failed to load audit information",
+    "error-withdraw": "Failed to withdraw the audit"
+  },
+  "vulnerability-management": "Vulnerability",
+  "vulnerability": {
+    "list": "Vulnerability list",
+    "oid": "OID",
+    "title": "Title",
+    "previous": "Previous",
+    "next": "Next",
+    "fix-required": "Fix required...",
+    "fix-required-true": "Required",
+    "fix-required-false": "Not required",
+    "fix-required-unknown": "Undefined"
+  }
+}

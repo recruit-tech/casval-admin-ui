@@ -5,7 +5,7 @@
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <div class="h5">新規検査の登録</div>
+              <div class="h5">{{ $t('audit.register-new-audit') }}</div>
               <hr class="mb-2">
               <audit-registration-form :audit-api-client="auditApiClient"></audit-registration-form>
             </div>
@@ -18,7 +18,7 @@
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <div class="h5 mb-3">検査中</div>
+              <div class="h5 mb-3">{{ $t('audit.ongoing') }}</div>
               <audit-list :audit-api-client="auditApiClient" :mode="'unsubmitted'"></audit-list>
             </div>
           </div>
@@ -30,7 +30,7 @@
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <div class="h5 mb-3">検査完了</div>
+              <div class="h5 mb-3">{{ $t('audit.completed') }}</div>
               <audit-list :audit-api-client="auditApiClient" :mode="'submitted'"></audit-list>
             </div>
           </div>

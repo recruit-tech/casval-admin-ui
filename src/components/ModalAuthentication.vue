@@ -3,25 +3,25 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">管理者の認証</h5>
+          <h5 class="modal-title">{{ $t('authentication.title') }}</h5>
         </div>
         <div class="modal-body">
           <p>
-            管理者パスワードを入力してください。
+            {{ $t('authentication.message') }}
             <small class="form-text text-danger">{{ errorMessage }}</small>
           </p>
           <div class="container mt-4">
             <div class="row">
               <div class="col"></div>
               <div class="col-7">
-                <input type="password" class="form-control" v-model="password">
+                <input type="password" class="form-control" :placeholder="$t('authentication.password')" v-model="password">
               </div>
               <div class="col"></div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" @click="authenticate">認証</button>
+          <button type="button" class="btn btn-primary" @click="authenticate">{{ $t('authentication.ok') }}</button>
         </div>
       </div>
     </div>
@@ -60,10 +60,10 @@ export default {
             window.location.reload(true);
             break;
           default:
-            this.errorMessage = '認証失敗';
+            this.errorMessage = this.$i18n.t('authentication.error-general');
         }
       } catch (e) {
-        this.errorMessage = '認証失敗';
+        this.errorMessage = this.$i18n.t('authentication.error-general');
       }
     },
   },

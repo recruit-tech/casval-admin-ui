@@ -3,11 +3,11 @@
     <table class="table table-hover mb-0">
       <thead>
         <tr>
-          <th scope="col">案件名</th>
-          <th scope="col">連絡先</th>
-          <th scope="col">登録日</th>
-          <th scope="col">最終更新日時</th>
-          <th scope="col">アクション</th>
+          <th scope="col">{{ $t('audit.name') }}</th>
+          <th scope="col">{{ $t('audit.contact') }}</th>
+          <th scope="col">{{ $t('audit.created-at') }}</th>
+          <th scope="col">{{ $t('audit.updated-at') }}</th>
+          <th scope="col">{{ $t('audit.action') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -17,16 +17,16 @@
           <td>{{displayDateTime(audit.created_at)}}</td>
           <td>{{displayDateTime(audit.updated_at)}}</td>
           <td>
-            <a :href="generateMailURL(audit)">担当者に連絡</a><br>
+            <a :href="generateMailURL(audit)">{{ $t('audit.send-email') }}</a><br>
             <a href="#" @click.prevent="remandAudit(index, audit.id)" v-if="audit.submitted">
-              提出を差し戻す
+              {{ $t('audit.withdraw') }}
             </a>
           </td>
         </tr>
       </tbody>
     </table>
     <hr class="mt-0">
-    <button class="btn btn-sm btn-outline-secondary float-right" @click="loadAuditIndex()">さらに見る</button>
+    <button class="btn btn-sm btn-outline-secondary float-right" @click="loadAuditIndex()">{{ $t('audit.read-more') }}</button>
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
         return '';
       }
       const m = moment(datetime, 'YYYY-MM-DD hh:mm:ss').add(this.utcOffset, 'minutes');
-      return m.format('YYYY年MM月DD日 (ddd) HH:mm:ss');
+      return m.format(this.$i18n.t('audit.datetime-format'));
     },
     remandAudit: async function remandAudit(index, auditId) {
       try {
@@ -80,11 +80,11 @@ export default {
             break;
           }
           default: {
-            this.errorMessage = '検査案件の差し戻しに失敗しました';
+            this.errorMessage = this.$i18n.t('audit.error-withdraw');
           }
         }
       } catch (e) {
-        this.errorMessage = '検査案件の差し戻しに失敗しました';
+        this.errorMessage = this.$i18n.t('audit.error-withdraw');
       }
     },
     loadAuditIndex: async function loadAuditIndex() {
@@ -99,10 +99,10 @@ export default {
             }
             break;
           default:
-            this.errorMessage = '検査結果の読み込みに失敗しました';
+            this.errorMessage = this.$i18n.t('audit.error-loading');
         }
       } catch (e) {
-        this.errorMessage = '検査結果の読み込みに失敗しました';
+        this.errorMessage = this.$i18n.t('audit.error-loading');
       }
     },
   },
