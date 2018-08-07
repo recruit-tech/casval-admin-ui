@@ -1,9 +1,9 @@
 {
   "authentication": {
-    "title": "管理者の認証",
+    "title": "管理者ログイン",
     "message": "管理者パスワードを入力してください。",
     "password": "管理者パスワード",
-    "ok": "認証",
+    "ok": "ログイン",
     "error-general": "認証に失敗しました"
   },
   "audit-management": "検査案件管理",
@@ -26,7 +26,7 @@
     "datetime-format": "YYYY年MM月DD日 (ddd) HH:mm:ss",
     "action": "アクション",
     "send-email": "担当者にメールを送る",
-    "withdraw": "提出を差し戻す",
+    "withdraw": "検査結果の提出を差し戻す",
     "read-more": "さらに見る",
     "error-loading": "検査の読み込みに失敗しました",
     "error-withdraw": "検査の差し戻しに失敗しました"
@@ -39,7 +39,7 @@
     "previous": "前へ",
     "next": "次へ",
     "fix-required": "修正要否",
-    "fix-required-true": "要",
+    "fix-required-true": "必要",
     "fix-required-false": "不要",
     "fix-required-unknown": "未定義"
   }
