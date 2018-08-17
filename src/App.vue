@@ -32,6 +32,8 @@ export default {
     return {
       currentTab: 'audit',
       token: window.localStorage.getItem('token'),
+      auditApiClient: null,
+      vulnerabilityApiClient: null,
     };
   },
   components: {
@@ -44,23 +46,36 @@ export default {
       this.currentTab = tab;
     },
   },
-  computed: {
-    auditApiClient: function createAuditApiClient() {
-      return axios.create({
-        baseURL: `${process.env.VUE_APP_AUDIT_API_ENDPOINT}`,
-        timeout: process.env.VUE_APP_API_TIMEOUT,
-        headers: { Authorization: `Bearer ${this.token}` },
-        validateStatus: () => true,
-      });
-    },
-    vulnerabilityApiClient: function createVulnerabilityApiClient() {
-      return axios.create({
-        baseURL: `${process.env.VUE_APP_VULNERABILITY_API_ENDPOINT}`,
-        timeout: process.env.VUE_APP_API_TIMEOUT,
-        headers: { Authorization: `Bearer ${this.token}` },
-        validateStatus: () => true,
-      });
-    },
+  created: function created() {
+    this.auditApiClient = axios.create({
+      baseURL: `${process.env.VUE_APP_AUDIT_API_ENDPOINT}`,
+      timeout: process.env.VUE_APP_API_TIMEOUT,
+      headers: { Authorization: `Bearer ${this.token}` },
+      validateStatus: () => true,
+    });
+    this.auditApiClient.interceptors.response.use(
+      response => response,
+      (error) => {
+        if (window.localStorage.getItem('token').length > 0) {
+          window.localStorage.removeItem('token');
+          window.location.reload(true);
+        }
+        return Promise.reject(error);
+      },
+    );
+    this.vulnerabilityApiClient = axios.create({
+      baseURL: `${process.env.VUE_APP_VULNERABILITY_API_ENDPOINT}`,
+      timeout: process.env.VUE_APP_API_TIMEOUT,
+      headers: { Authorization: `Bearer ${this.token}` },
+      validateStatus: () => true,
+    });
+    this.vulnerabilityApiClient.interceptors.response.use(
+      response => response,
+      (error) => {
+        window.localStorage.removeItem('token');
+        return Promise.reject(error);
+      },
+    );
   },
   mounted: function mounted() {
     if (this.token === null) {
