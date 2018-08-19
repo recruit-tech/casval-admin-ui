@@ -93,7 +93,7 @@ export default {
             this.contacts = [{ name: '', email: '' }];
             this.errorMessage = '';
             this.name = '';
-            window.eventBus.$emit('AUDIT_REGISTERED', res.data);
+            window.location.reload(true);
             break;
           }
           default: {
