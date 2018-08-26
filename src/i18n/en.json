@@ -34,14 +34,17 @@
   },
   "vulnerability-management": "Vulnerability",
   "vulnerability": {
+    "search": "Search",
     "list": "Vulnerability List",
-    "oid": "OID",
+    "id": "ID",
     "title": "Title",
     "previous": "Previous",
     "next": "Next",
     "fix-required": "Fix Required...",
     "fix-required-true": "Required",
     "fix-required-false": "Optional",
-    "fix-required-unknown": "Undefined"
+    "fix-required-unknown": "Undefined",
+    "error-loading": "Failed to load vulnerabilities",
+    "error-update": "Failed to update the vulnerability status"
   }
 }

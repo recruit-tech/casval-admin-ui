@@ -34,14 +34,17 @@
   },
   "vulnerability-management": "脆弱性管理",
   "vulnerability": {
+    "search": "検索",
     "list": "脆弱性一覧",
-    "oid": "OID",
+    "id": "ID",
     "title": "タイトル",
     "previous": "前へ",
     "next": "次へ",
     "fix-required": "修正要否",
     "fix-required-true": "必要",
     "fix-required-false": "不要",
-    "fix-required-unknown": "未定義"
+    "fix-required-unknown": "未定義",
+    "error-loading": "脆弱性の読み込みに失敗しました",
+    "error-update": "ステータスの更新に失敗しました"
   }
 }
