@@ -5,18 +5,28 @@
         {{ $t('audit.name') }}
       </div>
       <div class="col">
-        <input type="text" class="form-control " v-model="name" :placeholder="$t('audit.name')">
+        <input type="text" class="form-control " v-model="name" :placeholder="$t('audit.name')" />
       </div>
     </div>
     <div class="row pb-3" v-for="(contact, index) in contacts" :key="index">
-      <div class="col-2 pt-1 mt-1 text-secondary">
-        {{ $t('audit.contact') }} {{ index + 1 }}
-      </div>
+      <div class="col-2 pt-1 mt-1 text-secondary">{{ $t('audit.contact') }} {{ index + 1 }}</div>
       <div class="col-4">
-        <input type="text" class="form-control" v-model="contact.name" :placeholder="$t('audit.contact-name')" @keydown="addInputForm(index)">
+        <input
+          type="text"
+          class="form-control"
+          v-model="contact.name"
+          :placeholder="$t('audit.contact-name')"
+          @keydown="addInputForm(index)"
+        />
       </div>
       <div class="col">
-        <input type="email" class="form-control" v-model="contact.email" :placeholder="$t('audit.contact-email')" @keydown="addInputForm(index)" required>
+        <input
+          type="text"
+          class="form-control"
+          v-model="contact.email"
+          :placeholder="$t('audit.contact-email')"
+          @keydown="addInputForm(index)"
+        />
       </div>
     </div>
     <div class="row">
@@ -38,14 +48,14 @@ export default {
   props: {
     auditApiClient: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       contacts: [{ name: '', email: '' }],
       errorMessage: '',
-      name: '',
+      name: ''
     };
   },
   methods: {
@@ -59,34 +69,43 @@ export default {
 
       if (this.name.length === 0) {
         this.errorMessage = this.$i18n.t('audit.error-no-audit-name');
+        return;
       }
 
-      const filteredContacts = this.contacts.filter((item) => {
-        const condition = item.name.length > 0 || item.email.length > 0;
-        return condition;
-      });
+      const emailValidation = /^[\w\.-]+@([\w-]+\.)+\w+$/; // eslint-disable-line
+      const noEmptyContacts = [];
 
-      filteredContacts.forEach((item) => {
-        const emailValidation = /^[\w\.-]+@([\w-]+\.)+\w+$/; // eslint-disable-line
-        if (item.email.length === 0) {
-          this.errorMessage = this.$i18n.t('audit.error-invalid-name', { name: item.name });
-        } else if (!emailValidation.test(item.email)) {
-          this.errorMessage = this.$i18n.t('audit.error-invalid-email', { email: item.email });
+      this.contacts.forEach(contact => {
+        if (contact.name.length === 0 && contact.email.length > 0) {
+          this.errorMessage = this.$i18n.t('audit.error-no-name', { email: contact.email });
+          return;
+        }
+        if (contact.name.length > 0 && contact.email.length === 0) {
+          this.errorMessage = this.$i18n.t('audit.error-no-email', { name: contact.name });
+          return;
+        }
+        if (contact.name.length > 0 && contact.email.length > 0) {
+          if (!emailValidation.test(contact.email)) {
+            this.errorMessage = this.$i18n.t('audit.error-invalid-email', { email: contact.email });
+            return;
+          }
+          noEmptyContacts.push(contact);
         }
       });
-
-      if (filteredContacts.length === 0) {
-        this.errorMessage = this.$i18n.t('audit.error-no-contact');
-      }
 
       if (this.errorMessage.length > 0) {
         return;
       }
 
+      if (noEmptyContacts.length === 0) {
+        this.errorMessage = this.$i18n.t('audit.error-no-contact');
+        return;
+      }
+
       try {
-        const res = await this.auditApiClient.post('', {
+        const res = await this.auditApiClient.post('/', {
           name: this.name,
-          contacts: filteredContacts,
+          contacts: noEmptyContacts
         });
         switch (res.status) {
           case 200: {
@@ -103,7 +122,7 @@ export default {
       } catch (e) {
         this.errorMessage = this.$i18n.t('audit.error-general');
       }
-    },
-  },
+    }
+  }
 };
 </script>

@@ -19,11 +19,11 @@ const i18n = new VueI18n({
   fallbackLocale: 'en',
   messages: {
     en,
-    ja,
-  },
+    ja
+  }
 });
 
 new Vue({
   i18n,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app');

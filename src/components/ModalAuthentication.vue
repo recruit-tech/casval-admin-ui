@@ -14,7 +14,13 @@
             <div class="row">
               <div class="col"></div>
               <div class="col-7">
-                <input type="password" class="form-control" :placeholder="$t('authentication.password')" v-model="password">
+                <input
+                  type="password"
+                  class="form-control"
+                  :placeholder="$t('authentication.password')"
+                  v-model="password"
+                  @keyup.enter="authenticate"
+                />
               </div>
               <div class="col"></div>
             </div>
@@ -36,23 +42,23 @@ export default {
   data() {
     return {
       password: '',
-      errorMessage: '',
+      errorMessage: ''
     };
   },
   computed: {
     authApiClient: function createAuditApiClient() {
       return axios.create({
-        baseURL: `${process.env.VUE_APP_AUTH_API_ENDPOINT}`,
+        baseURL: `${process.env.VUE_APP_API_ENDPOINT}/auth`,
         timeout: process.env.VUE_APP_API_TIMEOUT,
-        validateStatus: () => true,
+        validateStatus: () => true
       });
-    },
+    }
   },
   methods: {
     authenticate: async function applyRestriction() {
       try {
-        const res = await this.authApiClient.post(null, {
-          password: this.password,
+        const res = await this.authApiClient.post('/', {
+          password: this.password
         });
         switch (res.status) {
           case 200:
@@ -65,7 +71,7 @@ export default {
       } catch (e) {
         this.errorMessage = this.$i18n.t('authentication.error-general');
       }
-    },
-  },
+    }
+  }
 };
 </script>
