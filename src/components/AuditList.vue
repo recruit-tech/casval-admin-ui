@@ -13,7 +13,7 @@
       <tbody>
         <tr v-for="(audit, index) in audits" :key="index">
           <td>
-            <a :href="`${origin}/#/${audit.uuid}/`" target="_blank">{{ audit.name }}</a>
+            <a :href="`${origin}/#/${audit.uuid.substr(0, 24)}/`" target="_blank">{{ audit.name }}</a>
           </td>
           <td>
             <a :href="generateMailURL(audit)"
