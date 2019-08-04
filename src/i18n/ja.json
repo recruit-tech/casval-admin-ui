@@ -9,6 +9,7 @@
   "audit-management": "検査案件管理",
   "audit": {
     "register-new-audit": "新規検査の登録",
+    "urgent-list": "緊急対応を要する検査",
     "list": "検査一覧",
     "search": "フリーワード検索",
     "choose-status": "案件ステータスを選択...",

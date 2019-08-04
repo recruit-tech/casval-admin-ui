@@ -9,6 +9,7 @@
   "audit-management": "Audit",
   "audit": {
     "register-new-audit": "Register New Audit",
+    "urgent-list": "Urgent Response Required",
     "list": "Audit List",
     "search": "Free Text Search",
     "choose-status": "Choose Audit Status...",
